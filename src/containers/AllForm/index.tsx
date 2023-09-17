@@ -32,18 +32,16 @@ const initialValues = {
 const validationSchema = yup.object({
     name: yup.string().required('Please Enter Your Full Name'),
     email: yup.string().email('Invalid Email!').required('Please Enter Your Email'),
-    dateOfBirth: yup.date()
-    .required("Date of Birth is required"),
-    street: yup.string().required('Plese Enter Your Street Adress'),
+    dateOfBirth: yup.date().required("Date of Birth is required"),
+    street: yup.string().required('Plese Enter Your Street Address'),
     city: yup.string().required('Plese Enter Your City'),
     state: yup.string().required('Please Enter Your State'),
     zipcode: yup.string().required()
-    .matches(/^[0-9]+$/, "Must be only digits")
-    .min(5, 'Must be exactly 5 digits')
-    .max(5, 'Must be exactly 5 digits'),
+      .matches(/^[0-9]+$/, "Must be only digits")
+      .min(5, 'Must be exactly 5 digits')
+      .max(5, 'Must be exactly 5 digits'),
     username: yup.string().required('Please Enter Your Username'),
-    password: yup.string()
-      .required("Please enter your password")
+    password: yup.string().required("Please Enter Your Password")
       .matches(
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
         "Use at least 8 characters, one uppercase letter, one lowercase letter, and one number"
