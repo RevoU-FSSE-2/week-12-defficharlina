@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Text } from '../../components';
+import { Text } from '../../components';
 import { Input, DatePicker, Button, Space } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
@@ -32,7 +32,7 @@ const initialValues = {
 const validationSchema = yup.object({
     name: yup.string().required('Please Enter Your Full Name'),
     email: yup.string().email('Invalid Email!').required('Please Enter Your Email'),
-    dateOfBirth: yup.date().required("Date of Birth is required"),
+    dob: yup.date().required("Date of Birth is required"),
     street: yup.string().required('Plese Enter Your Street Address'),
     city: yup.string().required('Plese Enter Your City'),
     state: yup.string().required('Please Enter Your State'),
@@ -108,14 +108,13 @@ const AllForm: React.FC = () => {
                     </div>
                     <div>
                         <Text>Date of Birth: </Text>
-                        <Input name={'dob'} 
-                            value={formMik.values.dob}
-                            onChange={formMik.handleChange('dob')}
-                            status={formMik.errors.dob && 'error'}
-                            />
-                        {formMik.errors.dob && (
-                            <Text>{formMik.errors.dob}</Text>
-                        )}
+                        <DatePicker
+                          name={'dob'} // Pastikan name sesuai dengan nama field dalam initialValues
+                          value={formMik.values.dob ? dayjs(formMik.values.dob) : null} // Ubah nilai tanggal ke objek dayjs jika ada
+                          onChange={(date) => formMik.setFieldValue('dob', date ? date.format('DD-MM-YYYY') : '')}
+                          format="DD-MM-YYYY" // Format tanggal sesuaikan dengan preferensi Anda
+                        />
+                        {formMik.errors.dob && <Text>{formMik.errors.dob}</Text>}
                     </div>
                 </div>
             )}
@@ -214,7 +213,7 @@ const AllForm: React.FC = () => {
                   formMik.setFieldError('state', 'Please enter your State');
                 } if (!formMik.values.city){
                   formMik.setFieldError('city', 'Please enter your City');
-                } if (formMik.values.zipcode){
+                } if (formMik.values.zipcode === ''){
                   formMik.setFieldError('zipcode', 'Please enter your Zip Code');
                   return;
                 } else {
@@ -235,7 +234,7 @@ const AllForm: React.FC = () => {
                 } if (!formMik.values.email) {
                   formMik.setFieldError('email', 'Please Input Your Email');
                 } if (!formMik.values.dob) {
-                  formMik.setFieldError('dob', 'Please Input Your Birthdate [dd-mm-yy]');
+                  formMik.setFieldError('dob', 'Please Input Your Birthdate [dd-mm-yyyy]');
                   return;
                 } else {
                   handleNext();
