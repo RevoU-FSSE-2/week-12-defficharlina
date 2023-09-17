@@ -12,7 +12,7 @@ interface RegistrationInformation {
     street: string;
     city: string;
     state: string;
-    zipcode: number;
+    zipcode: string;
     username: string;
     password: string;
 }
@@ -24,7 +24,7 @@ const initialValues = {
     street: '',
     city: '',
     state: '',
-    zipcode: 0,
+    zipcode: '',
     username: '',
     password: ''
 }
@@ -216,7 +216,7 @@ const AllForm: React.FC = () => {
                   formMik.setFieldError('state', 'Please enter your State');
                 } if (!formMik.values.city){
                   formMik.setFieldError('city', 'Please enter your City');
-                } if (formMik.values.zipcode === 0){
+                } if (formMik.values.zipcode){
                   formMik.setFieldError('zipcode', 'Please enter your Zip Code');
                   return;
                 } else {
