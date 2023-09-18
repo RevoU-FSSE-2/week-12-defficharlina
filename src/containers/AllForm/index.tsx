@@ -256,6 +256,7 @@ const AllForm: React.FC = () => {
                   formMik.setFieldError('email', 'Please enter your Password');
                   return;
                 } 
+                formMik.handleSubmit();
               }} >
                 Submit
                 </Button>
